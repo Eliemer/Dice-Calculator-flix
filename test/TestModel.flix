@@ -50,3 +50,22 @@ def diceToStringTotal(): Bool =
         })
     ))
 
+@Test
+def diceToStringRange(): Bool =
+    Assert.eq("4d[1..20]KH2", ToString.toString(
+        Dice({
+            count = 4,
+            method = RollingMethod.KeepHigh(2),
+            size = DiceSize.Range(1, 20)
+        })
+    ))
+
+@Test
+def diceToStringEnumeration(): Bool =
+    Assert.eq("4d[1,3,5]KH2", ToString.toString(
+        Dice({
+            count = 4,
+            method = RollingMethod.KeepHigh(2),
+            size = DiceSize.Enumeration(List#{1,3,5})
+        })
+    ))
