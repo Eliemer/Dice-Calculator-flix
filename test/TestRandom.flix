@@ -33,3 +33,15 @@ def shuffleSortReturnsSameArray(): Bool \ {IO, NonDet} =
             Assert.eq(xl, yl)
         }
     } with Random.runWithIO
+
+@Test
+def shuffleWithRandomSeed(): Bool =
+    run {
+        region rc {
+            let x = Array.range(rc, 0, 5);
+
+            Random.shuffleArray(x);
+
+            Assert.eq(List#{4,2,3,0,1}, x |> Array.toList)
+        }
+    } with Random.runWithSeed(1234i64)
