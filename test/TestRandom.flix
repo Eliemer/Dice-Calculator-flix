@@ -35,7 +35,7 @@ def shuffleSortReturnsSameArray(): Bool \ {IO, NonDet} =
     } with Random.runWithIO
 
 @Test
-def shuffleWithRandomSeed(): Bool =
+def shuffleWithManualSeed(): Bool =
     run {
         region rc {
             let x = Array.range(rc, 0, 5);
