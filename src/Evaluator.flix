@@ -1,6 +1,5 @@
 mod Evaluator {
-    use Evaluator.EvaluatorReport.EvaluatorReport
-    use Evaluator.EvaluatorReport
+
     type alias RollReport = { 
         diceExpression = String,
         diceResult = List[Int32],
@@ -13,7 +12,7 @@ mod Evaluator {
         result = List[RollReport]
     })
 
-    def roll(val: Model.Value): RollReport \ {Random, NonDet} =
+    def roll(val: Model.Value): RollReport \ Random =
         match val {
             case Model.Value.Flat(n) => 
                 {
@@ -68,9 +67,8 @@ mod Evaluator {
                 }
         }
 
-
-    def folder (acc: EvaluatorReport, rest: (Model.Operator, Model.Value)): EvaluatorReport \ {Random, NonDet} =
-        let EvaluatorReport(eReport) = acc;
+    def folder (acc: EvaluatorReport, rest: (Model.Operator, Model.Value)): EvaluatorReport \ Random =
+        let EvaluatorReport.EvaluatorReport(eReport) = acc;
         let (op, vexpr) = rest;
         let report = roll(vexpr);
 
@@ -83,7 +81,7 @@ mod Evaluator {
             expression = "${eReport#expression} ${op} ${report#diceExpression}"
         } |> EvaluatorReport.EvaluatorReport
 
-    pub def evaluate (expr: Model.Expression): EvaluatorReport \ {Random, NonDet} =
+    pub def evaluate (expr: Model.Expression): EvaluatorReport \ Random =
         let Model.Expression.Expression(e) = expr;
 
         let init: EvaluatorReport = {
