@@ -13,6 +13,8 @@ def main(): Unit \ {IO, NonDet} =
             ))
         });
 
-        let Evaluator.EvaluatorReport.EvaluatorReport(report) = Evaluator.evaluate(expr);
-        println("${report#expression} = ${report#total}\n\n${List.map(r -> r#diceRolls,report#result)}\n\n${List.map(r -> r#diceResult, report#result)}")
+        let report = Evaluator.evaluate(expr);
+        Console.printReport(report)
+
     } with Random.runWithIO
+      with Console.runWithIO
