@@ -17,7 +17,7 @@ mod Model {
 
     pub enum Dice({count = Int32, method = RollingMethod, size = DiceSize})
 
-    pub enum Value with ToString {
+    pub enum Value {
         case Dice(Dice), Flat(Int32)
     }
 
@@ -30,6 +30,7 @@ mod Model {
         rest = List[(Operator, Value)]
     })
 
+    // ToString
     instance ToString[RollingMethod] {
         pub def toString(x: RollingMethod): String = match x {
             case RollingMethod.Total => ""
@@ -65,6 +66,13 @@ mod Model {
         pub def toString(x: Operator): String = match x {
             case Operator.Add => "+"
             case Operator.Subtract => "-"
+        }
+    }
+
+    instance ToString[Value] {
+        pub def toString(x: Value): String = match x {
+            case Value.Flat(n) => "${n}"
+            case Value.Dice(d) => "${d}"
         }
     }
 
